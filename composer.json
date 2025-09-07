@@ -1,0 +1,56 @@
+{
+    "name": "andrey-tech/phpunit-cobertura-formatter-php",
+    "description": "Tool to show code coverage metrics, measured by PHP Unit in Cobertura format, in console and CI/CD pipeline",
+    "keywords": [
+        "test",
+        "coverage",
+        "metrics",
+        "phpunit",
+        "cobertura",
+        "console"
+    ],
+    "homepage": "https://github.com/andrey-tech/phpunit-cobertura-formatter-php",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "andrey-tech",
+            "homepage": "https://github.com/andrey-tech/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/andrey-tech/phpunit-cobertura-formatter-php/issues",
+        "source": "https://github.com/andrey-tech/phpunit-cobertura-formatter-php"
+    },
+    "require": {
+        "php": "^8.3",
+        "justinrainbow/json-schema": "^6.0",
+        "symfony/console": "^5.4 || ^6.4 || ^7.3",
+        "symfony/yaml": "^5.4 || ^6.4 || ^7.3"
+    },
+    "require-dev": {
+    },
+    "conflict": {
+    },
+    "suggest": {
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AndreyTech\\": "src/"
+        }
+    },
+    "bin": [
+        "bin/phpunit-cobertura-formatter"
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "AndreyTech\\PHPUnit\\Cobertura\\Formatter\\Installer::postInstall"
+        ]
+    }
+}

@@ -1,0 +1,37 @@
+colorizer:
+  metrics:
+
+    # Metrics of class
+    class:
+
+      lcov:
+        green: [ 100, 100 ]
+        yellow+bold: [ 1, 99 ]
+        red+bold: [ 0, 1 ]
+
+      bcov:
+        green: [ 100, 100 ]
+        yellow+bold: [ 1, 99 ]
+        red+bold: [ 0, 1 ]
+
+    # Metrics of method
+    method:
+
+      lcov:
+        green: [ 100, 100 ]
+        yellow+bold: [ 1, 99 ]
+        red+bold: [ 0, 1 ]
+
+      bcov:
+        green: [ 100, 100 ]
+        yellow+bold: [ 1, 99 ]
+        red+bold: [ 0, 1 ]
+
+      ccn:
+        green: [ 1, 7 ]
+        yellow+bold: [ 8, 10 ]
+        red+bold: [ 11, null ]
+
+      crap:
+        green: [ 0, 29 ]
+        red+bold: [ 30, null ]

@@ -1,0 +1,62 @@
+{
+    "type": "object",
+    "required": [
+        "colorizer"
+    ],
+    "properties": {
+        "colorizer": {
+            "type": "object",
+            "required": [
+                "metrics"
+            ],
+            "properties": {
+                "metrics": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "patternProperties": {
+                        "^.+$": {
+                            "$ref": "#/definitions/metricGroup"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "definitions": {
+        "metricGroup": {
+            "type": "object",
+            "minProperties": 1,
+            "patternProperties": {
+                "^.+$": {
+                    "$ref": "#/definitions/metric"
+                }
+            },
+            "additionalProperties": false
+        },
+        "metric": {
+            "type": "object",
+            "minProperties": 1,
+            "patternProperties": {
+                "^.+$": {
+                    "$ref": "#/definitions/range"
+                }
+            },
+            "additionalProperties": false
+        },
+        "range": {
+            "type": "array",
+            "items": {
+                "type": [
+                    "integer",
+                    "number",
+                    "null"
+                ]
+            },
+            "minItems": 1,
+            "maxItems": 2
+        }
+    },
+    "additionalProperties": false
+}
