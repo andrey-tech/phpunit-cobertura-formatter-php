@@ -27,6 +27,11 @@ final class Installer
         self::copyConfig();
     }
 
+    public static function postUpdate(): void
+    {
+        self::copyConfig();
+    }
+
     private static function copyConfig(): void
     {
         $source = sprintf('%s/Config/File/%s', __DIR__, self::CONFIG_FILE);
