@@ -13,8 +13,10 @@ namespace AndreyTech\PHPUnit\Cobertura\Formatter;
 
 use AndreyTech\PHPUnit\Cobertura\Formatter\Config\CommandLine;
 use AndreyTech\PHPUnit\Cobertura\Formatter\Config\File as ConfigFile;
+use AndreyTech\PHPUnit\Cobertura\Formatter\Config\File\Creator;
 use AndreyTech\PHPUnit\Cobertura\Formatter\Parser\File as CoberturaFile;
 use AndreyTech\PHPUnit\Cobertura\Formatter\Renderer\Colorizer;
+use Exception;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Throwable;
 
@@ -53,8 +55,18 @@ final class Application
         return $exitCode;
     }
 
+    /**
+     * @throws Exception
+     */
     private function doRun(): int
     {
+        $cmd = new CommandLine();
+        if ($cmd->optionInit()) {
+            (new Creator())->create();
+
+            return self::EXIT_CODE_OK;
+        }
+
         (new Renderer(
             $this->consoleOutput,
             new Colorizer(
@@ -63,7 +75,7 @@ final class Application
         ))->render(
             (new Parser())->parse(
                 new CoberturaFile(
-                    (new CommandLine())->coberturaFile()
+                    $cmd->coberturaFile()
                 )
             )
         );

@@ -15,6 +15,12 @@ use RuntimeException;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputOption;
+
+use function copy;
+use function file_exists;
+use function getcwd;
+use function sprintf;
 
 final readonly class CommandLine
 {
@@ -29,8 +35,11 @@ final readonly class CommandLine
     {
         $definition = new InputDefinition();
 
-        $argument = new InputArgument('cobertura-file', InputArgument::REQUIRED);
+        $argument = new InputArgument('cobertura-file', InputArgument::OPTIONAL);
         $definition->addArgument($argument);
+
+        $option = new InputOption('init', null, InputOption::VALUE_NONE);
+        $definition->addOption($option);
 
         return new ArgvInput(null, $definition);
     }
@@ -44,5 +53,10 @@ final readonly class CommandLine
         }
 
         return $coberturaFile;
+    }
+
+    public function optionInit(): bool
+    {
+        return (bool) $this->input->getOption('init');
     }
 }
