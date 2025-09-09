@@ -28,11 +28,13 @@ final class Application
     private const int EXIT_CODE_ERROR = 1;
 
     private ConsoleOutput $consoleOutput;
+    private CommandLine $commandLine;
     private Stats $stats;
 
     public function __construct()
     {
         $this->consoleOutput = new ConsoleOutput();
+        $this->commandLine = new CommandLine();
         $this->stats = new Stats();
     }
 
@@ -60,13 +62,24 @@ final class Application
      */
     private function doRun(): int
     {
-        $cmd = new CommandLine();
-        if ($cmd->optionInit()) {
+        $this->consoleOutput->getFormatter()->setDecorated(!$this->commandLine->optionNoColor());
+
+        if ($this->commandLine->optionInit()) {
             (new Creator())->create();
 
             return self::EXIT_CODE_OK;
         }
 
+        $this->parseAndRender();
+
+        return self::EXIT_CODE_OK;
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function parseAndRender(): void
+    {
         (new Renderer(
             $this->consoleOutput,
             new Colorizer(
@@ -75,12 +88,10 @@ final class Application
         ))->render(
             (new Parser())->parse(
                 new CoberturaFile(
-                    $cmd->coberturaFile()
+                    $this->commandLine->coberturaFile()
                 )
             )
         );
-
-        return self::EXIT_CODE_OK;
     }
 
     private function message(string $message): void

@@ -36,6 +36,9 @@ final readonly class CommandLine
         $option = new InputOption('init', null, InputOption::VALUE_NONE);
         $definition->addOption($option);
 
+        $option = new InputOption('no-color', null, InputOption::VALUE_NONE);
+        $definition->addOption($option);
+
         return new ArgvInput(null, $definition);
     }
 
@@ -53,5 +56,10 @@ final readonly class CommandLine
     public function optionInit(): bool
     {
         return (bool) $this->input->getOption('init');
+    }
+
+    public function optionNoColor(): bool
+    {
+        return (bool) $this->input->getOption('no-color');
     }
 }
