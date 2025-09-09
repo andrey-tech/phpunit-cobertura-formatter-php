@@ -17,11 +17,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 
-use function copy;
-use function file_exists;
-use function getcwd;
-use function sprintf;
-
 final readonly class CommandLine
 {
     private ArgvInput $input;
