@@ -10,7 +10,7 @@
         "console"
     ],
     "homepage": "https://github.com/andrey-tech/phpunit-cobertura-formatter-php",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "license": "MIT",
     "authors": [
         {
@@ -26,11 +26,20 @@
     "require": {
         "php": "^8.3",
         "ext-simplexml": "*",
-        "justinrainbow/json-schema": "^6.0",
-        "symfony/console": "^5.4 || ^6.4 || ^7.3",
-        "symfony/yaml": "^5.4 || ^6.4 || ^7.3"
+        "justinrainbow/json-schema": "^6.5.2",
+        "symfony/console": "^5.4 || ^6.4.25 || ^7.4",
+        "symfony/yaml": "^5.4 || ^6.4.25 || ^7.4"
     },
     "require-dev": {
+        "andrey-tech/pdepend-summary-formatter-php": "^1.2.2",
+        "dg/bypass-finals": "^1.9",
+        "overtrue/phplint": "^9.6.2",
+        "pdepend/pdepend": "^2.16.2",
+        "phpmd/phpmd": "^2.15",
+        "phpunit/phpunit": "^12.3.8",
+        "slevomat/coding-standard": "^8.22",
+        "squizlabs/php_codesniffer": "^3.13.4",
+        "vimeo/psalm": "^6.13.1"
     },
     "conflict": {
     },
@@ -39,6 +48,7 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "autoload": {
@@ -50,8 +60,17 @@
         "bin/phpunit-cobertura-formatter"
     ],
     "scripts": {
-        "post-install-cmd": [
-            "AndreyTech\\PHPUnit\\Cobertura\\Formatter\\Installer::postInstall"
+        "lint": "phplint --configuration=phplint.yml.dist",
+        "cs": "phpcs -s -p --report=full --standard=phpcs.xml.dist",
+        "psalm": "psalm --long-progress --output-format=compact --config=psalm.xml.dist",
+        "phpmd": "phpmd src ansi phpmd.xml.dist --suffixes php --ignore-violations-on-exit",
+        "pdepend": "pdepend --summary-xml=.summary.xml --suffix=php src && pdepend-summary-formatter --init && pdepend-summary-formatter .summary.xml --config-file=pdepend-summary-formatter.yml.dist --ignore-red-metrics-on-exit --ignore-yellow-metrics-on-exit",
+        "check": [
+            "@lint",
+            "@cs",
+            "@psalm",
+            "@phpmd",
+            "@pdepend"
         ]
     }
 }
