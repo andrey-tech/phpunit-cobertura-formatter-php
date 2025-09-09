@@ -11,12 +11,20 @@ declare(strict_types=1);
 
 namespace AndreyTech\PHPUnit\Cobertura\Formatter\Parser;
 
+use Closure;
+
+use function array_filter;
+use function array_values;
+
 final class ClassMetricsCollection
 {
     /**
-     * @var list<ClassMetrics>
+     * @param list<ClassMetrics> $items
      */
-    private array $items = [];
+    public function __construct(
+        private array $items = []
+    ) {
+    }
 
     public function add(ClassMetrics $classMetrics): void
     {
@@ -29,5 +37,17 @@ final class ClassMetricsCollection
     public function all(): array
     {
         return $this->items;
+    }
+
+    /**
+     * @param Closure(ClassMetrics):bool $closure
+     */
+    public function filter(Closure $closure): self
+    {
+        return new self(
+            array_values(
+                array_filter($this->items, $closure)
+            )
+        );
     }
 }

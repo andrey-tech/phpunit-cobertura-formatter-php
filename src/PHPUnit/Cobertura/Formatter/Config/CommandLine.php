@@ -17,16 +17,16 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 
-final readonly class CommandLine
+final class CommandLine
 {
     private ArgvInput $input;
 
     public function __construct()
     {
-        $this->input = $this->buildArgvInput();
+        $this->input = new ArgvInput();
     }
 
-    public function buildArgvInput(): ArgvInput
+    public function buildInputArgs(): void
     {
         $definition = new InputDefinition();
 
@@ -39,7 +39,10 @@ final readonly class CommandLine
         $option = new InputOption('no-color', null, InputOption::VALUE_NONE);
         $definition->addOption($option);
 
-        return new ArgvInput(null, $definition);
+        $option = new InputOption('filter-class-name', null, InputOption::VALUE_REQUIRED);
+        $definition->addOption($option);
+
+        $this->input = new ArgvInput(null, $definition);
     }
 
     public function coberturaFile(): string
@@ -47,7 +50,7 @@ final readonly class CommandLine
         $coberturaFile = (string) $this->input->getArgument('cobertura-file');
 
         if ('' === $coberturaFile) {
-            throw new RuntimeException('Missing required argument <path to cobertura XML file>.');
+            throw new RuntimeException('Missing required argument \'path to cobertura XML file\'.');
         }
 
         return $coberturaFile;
@@ -61,5 +64,21 @@ final readonly class CommandLine
     public function optionNoColor(): bool
     {
         return (bool) $this->input->getOption('no-color');
+    }
+
+    public function optionFilterClassName(): ?string
+    {
+        /** @var string|null $filterClassName */
+        $filterClassName = $this->input->getOption('filter-class-name');
+
+        if (null === $filterClassName) {
+            return null;
+        }
+
+        if ('' === $filterClassName) {
+            throw new RuntimeException('The "--filter-class-name" option requires a value.');
+        }
+
+        return $filterClassName;
     }
 }

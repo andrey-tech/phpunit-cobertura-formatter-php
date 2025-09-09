@@ -19,6 +19,7 @@ use AndreyTech\PHPUnit\Cobertura\Formatter\Renderer\Colorizer;
 use Exception;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Throwable;
+use AndreyTech\PHPUnit\Cobertura\Formatter\Parser\Filter\ClassName as ClassNameFilter;
 
 use function sprintf;
 
@@ -62,6 +63,8 @@ final class Application
      */
     private function doRun(): int
     {
+        $this->commandLine->buildInputArgs();
+
         $this->consoleOutput->getFormatter()->setDecorated(!$this->commandLine->optionNoColor());
 
         if ($this->commandLine->optionInit()) {
@@ -86,9 +89,13 @@ final class Application
                 new ConfigFile()
             )
         ))->render(
-            (new Parser())->parse(
-                new CoberturaFile(
-                    $this->commandLine->coberturaFile()
+            (new ClassNameFilter(
+                $this->commandLine->optionFilterClassName()
+            ))->filter(
+                (new Parser())->parse(
+                    new CoberturaFile(
+                        $this->commandLine->coberturaFile()
+                    )
                 )
             )
         );
