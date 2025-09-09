@@ -30,17 +30,16 @@ final class CommandLine
     {
         $definition = new InputDefinition();
 
-        $argument = new InputArgument('cobertura-file', InputArgument::OPTIONAL);
-        $definition->addArgument($argument);
+        $definition->addArguments([
+            new InputArgument('cobertura-file', InputArgument::OPTIONAL)
+        ]);
 
-        $option = new InputOption('init', null, InputOption::VALUE_NONE);
-        $definition->addOption($option);
-
-        $option = new InputOption('no-color', null, InputOption::VALUE_NONE);
-        $definition->addOption($option);
-
-        $option = new InputOption('filter-class-name', null, InputOption::VALUE_REQUIRED);
-        $definition->addOption($option);
+        $definition->addOptions([
+            new InputOption('init', null, InputOption::VALUE_NONE),
+            new InputOption('no-color', null, InputOption::VALUE_NONE),
+            new InputOption('filter-class-name', null, InputOption::VALUE_REQUIRED),
+            new InputOption('config-file', null, InputOption::VALUE_REQUIRED),
+        ]);
 
         $this->input = new ArgvInput(null, $definition);
     }
@@ -50,7 +49,7 @@ final class CommandLine
         $coberturaFile = (string) $this->input->getArgument('cobertura-file');
 
         if ('' === $coberturaFile) {
-            throw new RuntimeException('Missing required argument \'path to cobertura XML file\'.');
+            throw new RuntimeException('Missing required argument: path to cobertura XML file.');
         }
 
         return $coberturaFile;
@@ -80,5 +79,21 @@ final class CommandLine
         }
 
         return $filterClassName;
+    }
+
+    public function optionConfigFile(): ?string
+    {
+        /** @var string|null $configFile */
+        $configFile = $this->input->getOption('config-file');
+
+        if (null === $configFile) {
+            return null;
+        }
+
+        if ('' === $configFile) {
+            throw new RuntimeException('The "--config-file" option requires a value.');
+        }
+
+        return $configFile;
     }
 }

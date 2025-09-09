@@ -86,7 +86,9 @@ final class Application
         (new Renderer(
             $this->consoleOutput,
             new Colorizer(
-                new ConfigFile()
+                new ConfigFile(
+                    $this->commandLine->optionConfigFile()
+                )
             )
         ))->render(
             (new ClassNameFilter(

@@ -20,7 +20,6 @@ use function array_key_exists;
 use function array_shift;
 use function count;
 use function explode;
-use function getcwd;
 use function implode;
 use function is_array;
 use function is_file;
@@ -39,12 +38,12 @@ final class File
         'phpunit-cobertura-formatter.yml.dist',
     ];
 
-    private Validator $validator;
-
     /**
-     * @var string[]
+     * @var list<string>
      */
-    private array $files;
+    private array $files = self::DEFAULT_FILES;
+
+    private Validator $validator;
 
     /**
      * @var array<mixed>|null
@@ -56,13 +55,13 @@ final class File
      */
     private array $cache = [];
 
-    /**
-     * @param string[]|null $files
-     */
-    public function __construct(?array $files = null)
+    public function __construct(?string $file)
     {
         $this->validator = new Validator();
-        $this->files = $files ?? self::DEFAULT_FILES;
+
+        if (null !== $file) {
+            $this->files = [$file];
+        }
     }
 
     /**
@@ -100,9 +99,7 @@ final class File
 
     private function findFile(): string
     {
-        foreach ($this->files as $fileName) {
-            $file = sprintf('%s/%s', (string) getcwd(), $fileName);
-
+        foreach ($this->files as $file) {
             if (!is_file($file)) {
                 continue;
             }
