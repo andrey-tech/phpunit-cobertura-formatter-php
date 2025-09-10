@@ -14,6 +14,7 @@ namespace AndreyTech\PHPUnit\Cobertura\Formatter\Renderer;
 use AndreyTech\PHPUnit\Cobertura\Formatter\Config\File as Config;
 use AndreyTech\PHPUnit\Cobertura\Formatter\Parser\ClassMetrics;
 use AndreyTech\PHPUnit\Cobertura\Formatter\Parser\MethodMetrics;
+use AndreyTech\PHPUnit\Cobertura\Formatter\Renderer\Colorizer\Stats;
 
 use function array_shift;
 use function explode;
@@ -25,6 +26,7 @@ use const PHP_INT_MAX;
 final readonly class Colorizer
 {
     public function __construct(
+        private Stats $stats,
         private Config $config
     ) {
     }
@@ -129,6 +131,8 @@ final readonly class Colorizer
 
     private function renderTemplate(int|float $value, string $decor, string $format): string
     {
+        $this->stats->update($decor);
+
         $decorElements = explode('+', $decor);
         $tags = [sprintf('fg=%s', array_shift($decorElements))];
 

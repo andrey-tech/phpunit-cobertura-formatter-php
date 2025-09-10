@@ -12,14 +12,10 @@ declare(strict_types=1);
 namespace AndreyTech\PHPUnit\Cobertura\Formatter;
 
 use AndreyTech\PHPUnit\Cobertura\Formatter\Config\CommandLine;
-use AndreyTech\PHPUnit\Cobertura\Formatter\Config\File as ConfigFile;
 use AndreyTech\PHPUnit\Cobertura\Formatter\Config\File\Creator;
-use AndreyTech\PHPUnit\Cobertura\Formatter\Parser\File as CoberturaFile;
-use AndreyTech\PHPUnit\Cobertura\Formatter\Renderer\Colorizer;
 use Exception;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Throwable;
-use AndreyTech\PHPUnit\Cobertura\Formatter\Parser\Filter\ClassName as ClassNameFilter;
 
 use function sprintf;
 
@@ -27,15 +23,22 @@ final class Application
 {
     private const int EXIT_CODE_OK = 0;
     private const int EXIT_CODE_ERROR = 1;
+    private const int EXIT_CODE_RED_METRICS = 2;
+    private const int EXIT_CODE_YELLOW_METRICS = 3;
 
     private ConsoleOutput $consoleOutput;
     private CommandLine $commandLine;
+    private Processor $processor;
     private Stats $stats;
 
     public function __construct()
     {
         $this->consoleOutput = new ConsoleOutput();
         $this->commandLine = new CommandLine();
+        $this->processor = new Processor(
+            $this->consoleOutput,
+            $this->commandLine
+        );
         $this->stats = new Stats();
     }
 
@@ -53,7 +56,7 @@ final class Application
         }
 
         $this->stats->finish();
-        $this->showStats($exitCode);
+        $this->printStats($exitCode);
 
         return $exitCode;
     }
@@ -73,57 +76,40 @@ final class Application
             return self::EXIT_CODE_OK;
         }
 
-        $this->parseAndRender();
+        $this->processor->process();
+
+        return $this->calculateExitCode();
+    }
+
+    private function calculateExitCode(): int
+    {
+        if ($this->processor->colorizerStats->isRed()) {
+            return self::EXIT_CODE_RED_METRICS;
+        }
+
+        if ($this->processor->colorizerStats->isYellow()) {
+            return self::EXIT_CODE_YELLOW_METRICS;
+        }
 
         return self::EXIT_CODE_OK;
     }
 
-    /**
-     * @throws Exception
-     */
-    private function parseAndRender(): void
-    {
-        (new Renderer(
-            $this->consoleOutput,
-            new Colorizer(
-                new ConfigFile(
-                    $this->commandLine->optionConfigFile()
-                )
-            )
-        ))->render(
-            (new ClassNameFilter(
-                $this->commandLine->optionFilterClassName()
-            ))->filter(
-                (new Parser())->parse(
-                    new CoberturaFile(
-                        $this->commandLine->coberturaFile()
-                    )
-                )
-            )
-        );
-    }
-
-    private function message(string $message): void
-    {
-        $this->consoleOutput->writeln($message);
-    }
-
-    private function error(string $message): void
+    private function printStats(int $exitCode): void
     {
         $this->consoleOutput->writeln(
-            sprintf('<fg=red;options=bold>%s</>', $message)
-        );
-    }
-
-    private function showStats(int $exitCode): void
-    {
-        $this->message(
             sprintf(
                 'Exit code: %s, Time: %s, Memory: %s.',
                 $exitCode,
                 $this->stats->time(),
                 $this->stats->memory()
             )
+        );
+    }
+
+    private function error(string $message): void
+    {
+        $this->consoleOutput->writeln(
+            sprintf('<fg=red;options=bold>%s</>', $message)
         );
     }
 }
