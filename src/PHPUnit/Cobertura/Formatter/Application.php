@@ -83,11 +83,11 @@ final class Application
 
     private function calculateExitCode(): int
     {
-        if ($this->processor->colorizerStats->isRed()) {
+        if ($this->processor->colorizerStats->isRed() && !$this->commandLine->optionIgnoreRedMetricsOnExit()) {
             return self::EXIT_CODE_RED_METRICS;
         }
 
-        if ($this->processor->colorizerStats->isYellow()) {
+        if ($this->processor->colorizerStats->isYellow() && !$this->commandLine->optionIgnoreYellowMetricsOnExit()) {
             return self::EXIT_CODE_YELLOW_METRICS;
         }
 

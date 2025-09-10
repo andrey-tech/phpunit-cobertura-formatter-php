@@ -31,14 +31,16 @@ final class CommandLine
         $definition = new InputDefinition();
 
         $definition->addArguments([
-            new InputArgument('cobertura-file', InputArgument::OPTIONAL)
+            new InputArgument('cobertura-file', InputArgument::OPTIONAL),
         ]);
 
         $definition->addOptions([
             new InputOption('init', null, InputOption::VALUE_NONE),
-            new InputOption('no-color', null, InputOption::VALUE_NONE),
             new InputOption('filter-class-name', null, InputOption::VALUE_REQUIRED),
             new InputOption('config-file', null, InputOption::VALUE_REQUIRED),
+            new InputOption('no-color', null, InputOption::VALUE_NONE),
+            new InputOption('ignore-red-metrics-on-exit', null, InputOption::VALUE_NONE),
+            new InputOption('ignore-yellow-metrics-on-exit', null, InputOption::VALUE_NONE)
         ]);
 
         $this->input = new ArgvInput(null, $definition);
@@ -63,6 +65,16 @@ final class CommandLine
     public function optionNoColor(): bool
     {
         return (bool) $this->input->getOption('no-color');
+    }
+
+    public function optionIgnoreRedMetricsOnExit(): bool
+    {
+        return (bool) $this->input->getOption('ignore-red-metrics-on-exit');
+    }
+
+    public function optionIgnoreYellowMetricsOnExit(): bool
+    {
+        return (bool) $this->input->getOption('ignore-yellow-metrics-on-exit');
     }
 
     public function optionFilterClassName(): ?string
