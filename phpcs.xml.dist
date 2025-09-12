@@ -8,6 +8,7 @@
 
     <file>bin/</file>
     <file>src/</file>
+    <file>tests/</file>
 
     <arg name="basepath" value="."/>
     <arg name="colors"/>

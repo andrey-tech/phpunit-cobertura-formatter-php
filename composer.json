@@ -3,10 +3,12 @@
     "description": "Tool to show code coverage metrics, measured by PHP Unit in Cobertura format, in console and CI/CD pipeline",
     "keywords": [
         "test",
-        "coverage",
-        "metrics",
         "phpunit",
+        "metrics",
+        "coverage",
         "cobertura",
+        "ccn",
+        "crap",
         "console"
     ],
     "homepage": "https://github.com/andrey-tech/phpunit-cobertura-formatter-php",
@@ -39,11 +41,8 @@
         "phpunit/phpunit": "^12.3.8",
         "slevomat/coding-standard": "^8.22",
         "squizlabs/php_codesniffer": "^3.13.4",
+        "symfony/process": "^5.4 || ^6.4 || ^7.3",
         "vimeo/psalm": "^6.13.1"
-    },
-    "conflict": {
-    },
-    "suggest": {
     },
     "config": {
         "sort-packages": true,
@@ -56,6 +55,11 @@
             "AndreyTech\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    },
     "bin": [
         "bin/phpunit-cobertura-formatter"
     ],
@@ -64,13 +68,15 @@
         "cs": "phpcs -s -p --report=full --standard=phpcs.xml.dist",
         "psalm": "psalm --long-progress --output-format=compact --config=psalm.xml.dist",
         "phpmd": "phpmd src ansi phpmd.xml.dist --suffixes php --ignore-violations-on-exit",
-        "pdepend": "pdepend --summary-xml=.summary.xml --suffix=php src && pdepend-summary-formatter --init && pdepend-summary-formatter .summary.xml --config-file=pdepend-summary-formatter.yml.dist --ignore-red-metrics-on-exit --ignore-yellow-metrics-on-exit",
+        "pdepend": "pdepend --summary-xml=.summary.xml --suffix=php src && pdepend-summary-formatter --init && pdepend-summary-formatter .summary.xml --config-file=pdepend-summary-formatter.yml.dist --ignore-yellow-metrics-on-exit",
+        "test": "phpunit --configuration=phpunit.xml.dist --colors=always",
         "check": [
             "@lint",
             "@cs",
             "@psalm",
             "@phpmd",
-            "@pdepend"
+            "@pdepend",
+            "@test"
         ]
     }
 }
