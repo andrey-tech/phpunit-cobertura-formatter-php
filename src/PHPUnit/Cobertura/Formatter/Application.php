@@ -71,7 +71,7 @@ final class Application
         $this->consoleOutput->getFormatter()->setDecorated(!$this->commandLine->optionNoColor());
 
         if ($this->commandLine->optionInit()) {
-            (new Creator())->create();
+            (new Creator($this->consoleOutput))->create();
 
             return self::EXIT_CODE_OK;
         }

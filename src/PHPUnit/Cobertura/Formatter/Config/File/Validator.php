@@ -56,7 +56,7 @@ final class Validator
      */
     private function loadSchema(): array
     {
-        $schema = @file_get_contents(self::SCHEMA_FILE);
+        $schema = file_get_contents(self::SCHEMA_FILE);
         if (false === $schema) {
             throw new RuntimeException(
                 sprintf('Failed to load JSON schema file: "%s".', self::SCHEMA_FILE)
