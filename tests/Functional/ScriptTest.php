@@ -209,12 +209,16 @@ final class ScriptTest extends TestCase
 
     public function testInitSuccess(): void
     {
+        $tmpConfigFile = (string) getcwd() . '/phpunit-cobertura-formatter.yml.dist';
+
         $process = $this->runProcess([
             '--init',
         ]);
+
+        self::assertFileExists((string) realpath($tmpConfigFile));
         
         unlink(
-            (string) realpath((string) getcwd() . '/phpunit-cobertura-formatter.yml.dist')
+            (string) realpath($tmpConfigFile)
         );
 
         self::assertStringContainsString(
