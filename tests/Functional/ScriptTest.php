@@ -30,17 +30,17 @@ final class ScriptTest extends TestCase
             $this->getDataFileAbsolutePath('cobertura-red.xml')
         ]);
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             $this->getDataFileContents('success-red.txt'),
             $process->getOutput()
         );
 
-        $this->assertStringContainsString('Exit code:', $process->getOutput());
-        $this->assertStringContainsString('Time:', $process->getOutput());
-        $this->assertStringContainsString('Memory:', $process->getOutput());
+        self::assertStringContainsString('Exit code:', $process->getOutput());
+        self::assertStringContainsString('Time:', $process->getOutput());
+        self::assertStringContainsString('Memory:', $process->getOutput());
 
-        $this->assertSame(2, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(2, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     public function testNoColorSuccessRed(): void
@@ -51,17 +51,17 @@ final class ScriptTest extends TestCase
             $this->getDataFileAbsolutePath('cobertura-red.xml')
         ]);
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             $this->getDataFileContents('no-color-success-red.txt'),
             $process->getOutput()
         );
 
-        $this->assertStringContainsString('Exit code:', $process->getOutput());
-        $this->assertStringContainsString('Time:', $process->getOutput());
-        $this->assertStringContainsString('Memory:', $process->getOutput());
+        self::assertStringContainsString('Exit code:', $process->getOutput());
+        self::assertStringContainsString('Time:', $process->getOutput());
+        self::assertStringContainsString('Memory:', $process->getOutput());
 
-        $this->assertSame(2, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(2, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     public function testNoColorSuccessIgnoreRed(): void
@@ -73,17 +73,17 @@ final class ScriptTest extends TestCase
             $this->getDataFileAbsolutePath('cobertura-red.xml')
         ]);
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             $this->getDataFileContents('no-color-success-red.txt'),
             $process->getOutput()
         );
 
-        $this->assertStringContainsString('Exit code:', $process->getOutput());
-        $this->assertStringContainsString('Time:', $process->getOutput());
-        $this->assertStringContainsString('Memory:', $process->getOutput());
+        self::assertStringContainsString('Exit code:', $process->getOutput());
+        self::assertStringContainsString('Time:', $process->getOutput());
+        self::assertStringContainsString('Memory:', $process->getOutput());
 
-        $this->assertSame(3, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(3, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     public function testNoColorSuccessGreen(): void
@@ -94,17 +94,17 @@ final class ScriptTest extends TestCase
             $this->getDataFileAbsolutePath('cobertura-green.xml')
         ]);
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             $this->getDataFileContents('no-color-success-green.txt'),
             $process->getOutput()
         );
 
-        $this->assertStringContainsString('Exit code:', $process->getOutput());
-        $this->assertStringContainsString('Time:', $process->getOutput());
-        $this->assertStringContainsString('Memory:', $process->getOutput());
+        self::assertStringContainsString('Exit code:', $process->getOutput());
+        self::assertStringContainsString('Time:', $process->getOutput());
+        self::assertStringContainsString('Memory:', $process->getOutput());
 
-        $this->assertSame(0, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(0, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     public function testNoColorSuccessFilterGreen(): void
@@ -116,17 +116,17 @@ final class ScriptTest extends TestCase
             $this->getDataFileAbsolutePath('cobertura-green.xml')
         ]);
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             $this->getDataFileContents('no-color-success-green.txt'),
             $process->getOutput()
         );
 
-        $this->assertStringContainsString('Exit code:', $process->getOutput());
-        $this->assertStringContainsString('Time:', $process->getOutput());
-        $this->assertStringContainsString('Memory:', $process->getOutput());
+        self::assertStringContainsString('Exit code:', $process->getOutput());
+        self::assertStringContainsString('Time:', $process->getOutput());
+        self::assertStringContainsString('Memory:', $process->getOutput());
 
-        $this->assertSame(0, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(0, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     public function testNoColorSuccessFilterEmptyGreen(): void
@@ -138,17 +138,17 @@ final class ScriptTest extends TestCase
             $this->getDataFileAbsolutePath('cobertura-green.xml')
         ]);
 
-        $this->assertStringNotContainsString(
+        self::assertStringNotContainsString(
             $this->getDataFileContents('no-color-success-green.txt'),
             $process->getOutput()
         );
 
-        $this->assertStringContainsString('Exit code:', $process->getOutput());
-        $this->assertStringContainsString('Time:', $process->getOutput());
-        $this->assertStringContainsString('Memory:', $process->getOutput());
+        self::assertStringContainsString('Exit code:', $process->getOutput());
+        self::assertStringContainsString('Time:', $process->getOutput());
+        self::assertStringContainsString('Memory:', $process->getOutput());
 
-        $this->assertSame(0, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(0, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     public function testNoColorSuccessYellow(): void
@@ -159,17 +159,17 @@ final class ScriptTest extends TestCase
             $this->getDataFileAbsolutePath('cobertura-yellow.xml')
         ]);
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             $this->getDataFileContents('no-color-success-yellow.txt'),
             $process->getOutput()
         );
 
-        $this->assertStringContainsString('Exit code:', $process->getOutput());
-        $this->assertStringContainsString('Time:', $process->getOutput());
-        $this->assertStringContainsString('Memory:', $process->getOutput());
+        self::assertStringContainsString('Exit code:', $process->getOutput());
+        self::assertStringContainsString('Time:', $process->getOutput());
+        self::assertStringContainsString('Memory:', $process->getOutput());
 
-        $this->assertSame(3, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(3, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     public function testNoColorSuccessIgnoreYellow(): void
@@ -181,30 +181,30 @@ final class ScriptTest extends TestCase
             $this->getDataFileAbsolutePath('cobertura-yellow.xml')
         ]);
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             $this->getDataFileContents('no-color-success-yellow.txt'),
             $process->getOutput()
         );
 
-        $this->assertStringContainsString('Exit code:', $process->getOutput());
-        $this->assertStringContainsString('Time:', $process->getOutput());
-        $this->assertStringContainsString('Memory:', $process->getOutput());
+        self::assertStringContainsString('Exit code:', $process->getOutput());
+        self::assertStringContainsString('Time:', $process->getOutput());
+        self::assertStringContainsString('Memory:', $process->getOutput());
 
-        $this->assertSame(0, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(0, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     public function testNoCoberturaFileError(): void
     {
         $process = $this->runProcess();
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             'ERROR: Missing required argument: path to cobertura XML file.',
             $process->getOutput()
         );
 
-        $this->assertSame(1, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(1, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     public function testInitSuccess(): void
@@ -212,18 +212,18 @@ final class ScriptTest extends TestCase
         $process = $this->runProcess([
             '--init',
         ]);
-
+        
         unlink(
             (string) realpath((string) getcwd() . '/phpunit-cobertura-formatter.yml.dist')
         );
 
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             'Default config file created at',
             $process->getOutput()
         );
 
-        $this->assertSame(0, $process->getExitCode());
-        $this->assertEmpty($process->getErrorOutput());
+        self::assertSame(0, $process->getExitCode());
+        self::assertEmpty($process->getErrorOutput());
     }
 
     /**
