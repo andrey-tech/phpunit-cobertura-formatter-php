@@ -69,7 +69,7 @@
         "psalm": "psalm --long-progress --output-format=compact --config=psalm.xml.dist",
         "phpmd": "phpmd src ansi phpmd.xml.dist --suffixes php --ignore-violations-on-exit",
         "pdepend": "pdepend --summary-xml=.summary.xml --suffix=php src && pdepend-summary-formatter --init && pdepend-summary-formatter .summary.xml --config-file=pdepend-summary-formatter.yml.dist --ignore-yellow-metrics-on-exit",
-        "test": "phpunit --configuration=phpunit.xml.dist --colors=always",
+        "test": "phpunit --configuration=phpunit.xml.dist",
         "check": [
             "@lint",
             "@cs",
