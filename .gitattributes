@@ -1,3 +1,4 @@
 * text=auto
 /.gitattributes                                export-ignore
 /.gitignore                                    export-ignore
+/assets/phpunit-cobertura-formatter-social.png export-ignore
