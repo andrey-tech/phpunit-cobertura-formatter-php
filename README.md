@@ -3,6 +3,7 @@
 ![PHPUnit Cobertura Formatter logo](./assets/phpunit-cobertura-formatter-logo.png)
 
 [![Latest Stable Version](https://poser.pugx.org/andrey-tech/phpunit-cobertura-formatter-php/v)](https://packagist.org/packages/andrey-tech/phpunit-cobertura-formatter-php)
+[![PHP workflow](https://github.com/andrey-tech/phpunit-cobertura-formatter-php/actions/workflows/php.yml/badge.svg?branch=master)](https://github.com/andrey-tech/phpunit-cobertura-formatter-php/actions/workflows/php.yml)
 [![Total Downloads](https://poser.pugx.org/andrey-tech/phpunit-cobertura-formatter-php/downloads)](//packagist.org/packages/andrey-tech/phpunit-cobertura-formatter-php)
 [![PHP Version Require](https://poser.pugx.org/andrey-tech/phpunit-cobertura-formatter-php/require/php)](https://packagist.org/packages/andrey-tech/phpunit-cobertura-formatter-php)
 [![License](https://poser.pugx.org/andrey-tech/phpunit-cobertura-formatter-php/license)](https://packagist.org/packages/andrey-tech/phpunit-cobertura-formatter-php)
