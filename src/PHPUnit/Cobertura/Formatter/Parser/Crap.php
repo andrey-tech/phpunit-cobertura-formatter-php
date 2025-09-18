@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace AndreyTech\PHPUnit\Cobertura\Formatter\Parser;
 
 use function pow;
+use function round;
 
 final class Crap
 {
@@ -22,6 +23,6 @@ final class Crap
     {
         $crap = (float) pow($complexity, 2) * pow(1.0 - $coverage, 3) + (float) $complexity;
 
-        return (int) $crap;
+        return (int) round($crap);
     }
 }
