@@ -146,11 +146,11 @@ colorizer:
       ccn:
         green: [ 1, 7 ]
         yellow+bold: [ 8, 10 ]
-        red+bold: [ 11, null ]
+        red+bold: [ 11 ]
 
       crap:
         green: [ 0, 29 ]
-        red+bold: [ 30, null ]
+        red+bold: [ 30 ]
 ```
 
 ## Exit codes
